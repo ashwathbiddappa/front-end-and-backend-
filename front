@@ -1,0 +1,29 @@
+// Frontend: App.js
+
+import React, { useState, useEffect } from 'react';
+import './App.css';
+
+function App() {
+  const [patients, setPatients] = useState([]);
+
+  useEffect(() => {
+    fetch('/api/patients')
+      .then(response => response.json())
+      .then(data => setPatients(data));
+  }, []);
+
+  return (
+    <div className="App">
+      <h1>Patients</h1>
+      <ul>
+        {patients.map(patient => (
+          <li key={patient.id}>
+            {patient.firstName} {patient.lastName}
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+}
+
+export default App;
